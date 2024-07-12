@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  cloud-resume-api
+
+  yolo
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+    LoggingConfig:
+      LogFormat: JSON
+
+Resources:
+  CounterFunction:
+    Type: AWS::Serverless::Function
+    DependsOn: CounterTable
+    Properties:
+      CodeUri: counter/
+      Handler: handler.lambda_handler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref CounterTable
+      Runtime: python3.10
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /increment
+            Method: post
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CounterTable
+
+  CounterTable:
+    Type: AWS::DynamoDB::Table
+    Description: Counter Table
+    Properties:
+      TableName: CounterTable
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+Outputs:
+  CounterApi:
+    Description: API Gateway endpoint URL for Prod stage for Counter function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/increment/"
+  CounterFunction:
+    Description: Counter Lambda Function ARN
+    Value: !GetAtt CounterFunction.Arn
+  CounterFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value: !GetAtt CounterFunctionRole.Arn
