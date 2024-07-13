@@ -27,4 +27,4 @@ jobs:
       - run: pytest
 
       # sam deploy
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name cloud-resume-api --s3-bucket ${{ secrets.S3_BUCKET }} --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }}
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name cloud-resume-api --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }}
