@@ -27,7 +27,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /increment
+            Path: /api/increment
             Method: post
       Policies:
         - DynamoDBCrudPolicy:
@@ -49,10 +49,10 @@ Resources:
 Outputs:
   CounterApi:
     Description: API Gateway endpoint URL for Prod stage for Counter function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/increment/"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/increment/"
   CounterFunction:
     Description: Counter Lambda Function ARN
     Value: !GetAtt CounterFunction.Arn
   CounterFunctionIamRole:
-    Description: Implicit IAM Role created for Hello World function
+    Description: Implicit IAM Role created for Counter function
     Value: !GetAtt CounterFunctionRole.Arn
