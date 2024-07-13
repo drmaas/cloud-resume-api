@@ -6,6 +6,12 @@ Description: >
   yolo
 
 Globals:
+  Api:
+    Cors:
+      AllowOrigin: "'*'"
+      AllowMethods: "'GET, POST, OPTIONS'"
+      AllowHeaders: "'Content-Type, Accept'"
+      AllowCredentials: "'*'"
   Function:
     Timeout: 3
     MemorySize: 128

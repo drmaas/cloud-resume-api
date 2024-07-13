@@ -21,6 +21,11 @@ def lambda_handler(event, context):
     # return count
     return {
         'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Headers' : 'Accept, Content-Type',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        },
         'body': json.dumps({
             'counter': new_value,
         }),
