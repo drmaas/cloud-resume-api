@@ -21,7 +21,6 @@ Globals:
 Resources:
   CounterFunction:
     Type: AWS::Serverless::Function
-    DependsOn: CounterTable
     Properties:
       CodeUri: counter/
       Handler: handler.lambda_handler
@@ -33,7 +32,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /api/increment
+            Path: /resume/increment
             Method: post
       Policies:
         - DynamoDBCrudPolicy:
@@ -41,7 +40,6 @@ Resources:
 
   CounterTable:
     Type: AWS::DynamoDB::Table
-    Description: Counter Table
     Properties:
       TableName: CounterTable
       AttributeDefinitions:
@@ -55,7 +53,7 @@ Resources:
 Outputs:
   CounterApi:
     Description: API Gateway endpoint URL for Prod stage for Counter function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/increment/"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/resume/increment/"
   CounterFunction:
     Description: Counter Lambda Function ARN
     Value: !GetAtt CounterFunction.Arn

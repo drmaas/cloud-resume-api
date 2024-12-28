@@ -25,5 +25,11 @@ pytest
 
 1. Deploy
 ```bash
-sam deploy
+sam deploy --guided
 ```
+
+1. Execute an API call
+```bash
+curl 
+```
+
